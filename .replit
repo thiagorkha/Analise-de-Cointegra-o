@@ -1,2 +1,0 @@
-language = "python3"
-run = "streamlit run coint.py --browser.serverAddress 0.0.0.0 --server.enableCORS false"
