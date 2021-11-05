@@ -29,7 +29,7 @@ CARTEIRA_IBOV = [
           'CPFE3',
           'CVCB3',
           'CYRE3',
-          'DXCO3',
+          #'DXCO3',
           'ECOR3',
           'ELET3',
           'ELET6',
