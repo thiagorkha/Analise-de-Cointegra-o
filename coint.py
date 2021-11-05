@@ -1,6 +1,4 @@
 import streamlit as st
-#PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
-#st.beta_set_page_config(**PAGE_CONFIG)
 import base64
 from io import StringIO
 from io import BytesIO
@@ -75,15 +73,7 @@ if pag == 'Análise':
   seriesx = st.sidebar.selectbox('Independente', ibov.CARTEIRA_IBOV ) + '.SA'
   periodo1 = st.sidebar.slider("Periodo", 100, 260, 260, 20)
 
-  #period = '2y'
-  #interval = '1d'
-
-  #data = get_market_data([series_x, series_y], period, interval)
-  #market_data = data[periodo1:]
-  #market_data = market_data.dropna()
-  #series_x = market_data['Close'][series_x]
-  #series_y = market_data['Close'][series_y]
-
+ 
   if st.sidebar.button('Calcular'):
 
     data = get_market_data([seriesx, seriesy], '2y', '1d')
@@ -121,20 +111,28 @@ if pag == 'Análise':
     else:
       adfperc = '0%'    
 
-    st.write('Teste ADF:', adfperc)
-    st.write(f'Residuo:{(residuo.iloc[-1]): .2f}')
     if (residuo.iloc[-1] > 0):
-      st.write(f'Desvio max: {stdmax: .2f}')
-      st.write('Vender',f'{qcd: .0f}', seriesy,'e Comprar',f'{qcin: .0f}', seriesx) 
-    elif (residuo.iloc[-1] < 0) :  
-      st.write('Desvio min:', f'{stdmin: .2f}')
-      st.write('Comprar',f'{qcd: .0f}', seriesy,'e Vender',f'{qcin: .0f}', seriesx)
-    st.write('Meia vida: ', f'{half_life: .2f}')
-    st.write('Coef. Ang.:', f'{lin: .2f}')
-    st.write('R$',f'{vl: .2f}')
+      std = f'{stdmax: .2f}'
+    elif (residuo.iloc[-1] < 0) :
+      std = f'{stdmin: .2f}'
 
-    
+    res = [[adfperc, f'{(residuo.iloc[-1]): .2f}', std, f'{half_life: .2f}', f'{lin: .2f}']]  
+    cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.'])
+
+    st.dataframe(cjt)
+
+
+    if (residuo.iloc[-1] > 0):
+      st.write('Vender',f'{qcd: .0f}', seriesy, f'No valor de R${vl: .2f}') 
+      st.write('Comprar',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
+    elif (residuo.iloc[-1] < 0) :
+      st.write('Comprar',f'{qcd: .0f}', seriesy, 'No valor de R$',f'{vl: .2f}')
+      st.write('Vender',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
+
+    st.subheader('Gráfico do Residuo')  
     graf = st_get_residuals_plot(coint['OLS'])
+    st.write('Beta Rotation:', f'{((beta_rot[0]) * 10): .2f}', "%")
+    st.subheader("Gráfico do Beta Rotation")
     graf1 = st_get_beta_plot(beta_rot)   
 
     st.subheader('Periodos Cointegrados')
