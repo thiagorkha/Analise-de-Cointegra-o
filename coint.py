@@ -71,19 +71,23 @@ if st.sidebar.button('Calcular'):
   elif (ADF < -2.57):
     adfperc = '90%'
   else:
-    adfperc = '0%'    
+    adfperc = '0%'   
 
   st.write('Teste ADF:', adfperc)
-  st.write('Residuo:',residuo.iloc[-1])
+  st.write(f'Residuo:{(residuo.iloc[-1]): .2f}')
   if (residuo.iloc[-1] > 0):
-    st.write('Desvio max:', stdmax)
-    st.write('Vender',qcd, seriesy,'e Comprar',qcin, seriesx) 
+    st.write(f'Desvio max: {stdmax: .2f}')
+    st.write('Vender',f'{qcd: .0f}', seriesy,'e Comprar',f'{qcin: .0f}', seriesx) 
   elif (residuo.iloc[-1] < 0) :  
-    st.write('Desvio min:', stdmin)
-    st.write('Comprar',qcd, seriesy,'e Vender',qcin, seriesx)
-  st.write('Meia vida: ', half_life)
-  st.write('Coef. Ang.:', lin)
-  st.write('R$',vl)
+    st.write('Desvio min:', f'{stdmin: .2f}')
+    st.write('Comprar',f'{qcd: .0f}', seriesy,'e Vender',f'{qcin: .0f}', seriesx)
+  st.write('Meia vida: ', f'{half_life: .2f}')
+  st.write('Coef. Ang.:', f'{lin: .2f}')
+  st.write('R$',f'{vl: .2f}')
+
+  
+
+ 
 
   
   graf = st_get_residuals_plot(coint['OLS'])
