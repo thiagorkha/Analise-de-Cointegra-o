@@ -228,5 +228,63 @@ def clean_timeseries(x, y):
     return newx, newy
 
 
+def download_hquotes(carteira_tickers):
+    global market_data
+
+    # Faz Download 5y
+    data = get_market_data(carteira_tickers, '5y', '1d')
+    market_data = data[-260:]
+
+    # Faz o calculo
+ 
+    for ticker in carteira_tickers:
+        series_x = data['Close'][ticker]
+  
+
+    return market_data
+
+
+def gera_pares(carteira_tickers):
+
+    # Forma todos os pares sem repetição
+    set_pairs = set([])
+    for i in carteira_tickers:
+        for k in carteira_tickers:
+            if i == k:
+                continue
+            set_pairs.add((i, k))
+
+    print('Total:', len(set_pairs), 'pares')
+
+    return set_pairs
+
+def coint_model2(series_x, series_y, periodo,quote):
+   
+    p = periodo + 260
+    
+    series_x = (quote['Close', series_x]).loc[p:260]
+    series_y = (quote['Close', series_y]).loc[p:260]
+
+    series_x, series_y = clean_timeseries(series_x, series_y)
+
+    x2 = series_x
+    y2 = series_y
+
+    try:
+        X = sm.add_constant(series_x.values)
+        mod = sm.OLS(series_y, X)
+        results = mod.fit()
+        adfTest = adfuller(results.resid, autolag='AIC')
+        lin = linregress(x2,y2)
+        lin = lin[0]
+        return {
+            'OLS': results,
+            'ADF': adfTest,
+            'Lin': lin,
+        }
+    except:
+        raise
+
+
 
 
