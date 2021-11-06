@@ -112,11 +112,11 @@ if pag == 'Análise':
       adfperc = '0%'    
 
     if (residuo.iloc[-1] > 0):
-      std = f'{stdmax: .2f}'
+      std = f'{stdmax: .4f}'
     elif (residuo.iloc[-1] < 0) :
-      std = f'{stdmin: .2f}'
+      std = f'{stdmin: .4f}'
 
-    res = [[adfperc, f'{(residuo.iloc[-1]): .2f}', std, f'{half_life: .2f}', f'{lin: .2f}']]  
+    res = [[adfperc, f'{(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', f'{lin: .2f}']]  
     cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.'])
 
     st.dataframe(cjt)
@@ -131,7 +131,7 @@ if pag == 'Análise':
 
     st.subheader('Gráfico do Residuo')  
     graf = st_get_residuals_plot(coint['OLS'])
-    st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
+    st.write('Beta Rotation:', f'{((beta_rot[0]) * 10): .2f}', "%")
     st.subheader("Gráfico do Beta Rotation")
     graf1 = st_get_beta_plot(beta_rot)   
 
@@ -140,12 +140,18 @@ if pag == 'Análise':
     for periodo in periodos:
       coint = coint_model1(seriesx, seriesy, periodo)
       adfr = coint['ADF']
+      residuo = (coint['OLS']).resid
+      stddev = (coint['OLS']).resid.std()
+      media = (coint['OLS']).resid.median()
+      stdmax = media + (stddev * 1.96)
+      stdmin = media - (stddev * 1.96)
       if (adfr[0] < -3): 
-        #st.write(x, y)
-        st.write('ADF:', adfr[0],
-        'Periodo:', periodo)
-  
-
+        if (residuo.iloc[-1] > 0):
+          st.write('ADF: ', f'{(adfr[0]): .2f}',
+          ' Periodo :', f'{periodo: .0f}', ' Residuo: ', f'{(residuo.iloc[-1]): .4f}', ' Desvio: ', f'{stdmax: .4f}')
+        elif (residuo.iloc[-1] < 0):
+          st.write('ADF: ', f'{(adfr[0]): .2f}',
+          ' Periodo: ', f'{periodo: .0f}', ' Residuo: ', f'{(residuo.iloc[-1]): .4f}', ' Desvio: ', f'{stdmin: .4f}')
 
 
 
