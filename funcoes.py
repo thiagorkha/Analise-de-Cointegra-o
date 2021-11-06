@@ -10,7 +10,7 @@ from statsmodels.tsa.stattools import adfuller
 from datetime import datetime, timedelta
 from scipy.stats import linregress
 import streamlit as st
-
+import seaborn as sns
 
 
 def get_market_data(tickers, period, interval):
@@ -73,6 +73,7 @@ def _get_residuals_plot(ols):
     stddev = ols.resid.std()
     xmin = ols.resid.index.min()
     xmax = ols.resid.index.max()
+    sns.set()
     mplt.figure(figsize=(15,7))
     # limpa o canvas
     mplt.clf()
@@ -94,6 +95,7 @@ def st_get_residuals_plot(ols):
     stddev = ols.resid.std()
     xmin = ols.resid.index.min()
     xmax = ols.resid.index.max()
+    sns.set()
     mplt.figure(figsize=(15,7))
     # limpa o canvas
     mplt.clf()
@@ -157,6 +159,7 @@ def beta_rotation1(series_x, series_y, window=40):
 
 def get_beta_plot(beta_list):
     # limpa o canvas
+    sns.set()
     mplt.figure(figsize=(20,5))
     mplt.clf()
     mplt.cla()
@@ -170,6 +173,7 @@ def get_beta_plot(beta_list):
 
 def st_get_beta_plot(beta_list):
     # limpa o canvas
+    sns.set()
     mplt.figure(figsize=(20,5))
     mplt.clf()
     mplt.cla()
