@@ -131,7 +131,7 @@ if pag == 'Análise':
 
     st.subheader('Gráfico do Residuo')  
     graf = st_get_residuals_plot(coint['OLS'])
-    st.write('Beta Rotation:', f'{((beta_rot[0]) * 10): .2f}', "%")
+    st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
     st.subheader("Gráfico do Beta Rotation")
     graf1 = st_get_beta_plot(beta_rot)   
 
