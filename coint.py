@@ -10,6 +10,7 @@ import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
 from datetime import datetime, timedelta
 from scipy.stats import linregress
+import seaborn as sns
 import ibov
 from funcoes import coint_model, get_market_data, half_life, get_beta_plot, _get_residuals_plot, beta_rotation, asBase64, fp_savefig, st_get_residuals_plot, st_get_beta_plot,beta_rotation1, clean_timeseries, drop_nan, coint_model1, gera_pares, download_hquotes, coint_model2
 
