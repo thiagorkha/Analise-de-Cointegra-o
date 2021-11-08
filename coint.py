@@ -13,7 +13,10 @@ from scipy.stats import linregress
 import ibov
 from funcoes import coint_model, get_market_data, half_life, get_beta_plot, _get_residuals_plot, beta_rotation, asBase64, fp_savefig, st_get_residuals_plot, st_get_beta_plot,beta_rotation1, clean_timeseries, drop_nan, coint_model1, gera_pares, download_hquotes, coint_model2
 
-pag = st.sidebar.selectbox('Escolha uma Opção',['Análise','Buscar pares'])
+pag = st.sidebar.selectbox('Escolha uma Opção',['Análise','Buscar pares','Vazio'], 2)
+
+if pag == 'Vazio':
+  st.title('Plataforma de Cointegração')
 
 
 if pag == 'Buscar pares':
@@ -73,7 +76,6 @@ if pag == 'Análise':
   seriesx = st.sidebar.selectbox('Independente', ibov.CARTEIRA_IBOV ) + '.SA'
   periodo1 = st.sidebar.slider("Periodo", 100, 260, 260, 20)
 
- 
   if st.sidebar.button('Calcular'):
 
     data = get_market_data([seriesx, seriesy], '2y', '1d')
@@ -131,7 +133,7 @@ if pag == 'Análise':
 
     st.subheader('Gráfico do Residuo')  
     graf = st_get_residuals_plot(coint['OLS'])
-    st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
+    st.write('Beta Rotation:', f'{((beta_rot[0]) * 10): .2f}', "%")
     st.subheader("Gráfico do Beta Rotation")
     graf1 = st_get_beta_plot(beta_rot)   
 
