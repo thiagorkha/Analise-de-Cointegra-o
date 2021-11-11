@@ -176,11 +176,14 @@ if senha == senha_sl:
             adfperc = '0%'    
   
           if (residuo.iloc[-1] > 0):
-            st.write('ADF: ', f'{(adfr[0]): .2f}', ' ADF%: ', adfperc,
-            ' Periodo :', f'{periodo: .0f}', ' Residuo: ', f'{(residuo.iloc[-1]): .4f}', ' Desvio: ', f'{stdmax: .4f}')
+            res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmax: .4f}']]
+            cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
+            st.dataframe(cjt1)
+
           elif (residuo.iloc[-1] < 0):
-            st.write('ADF: ', f'{(adfr[0]): .2f}', ' ADF%: ', adfperc,
-            ' Periodo: ', f'{periodo: .0f}', ' Residuo: ', f'{(residuo.iloc[-1]): .4f}', ' Desvio: ', f'{stdmin: .4f}')
+            res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmin: .4f}']]
+            cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
+            st.dataframe(cjt1)
 else:
   print('Senha incorreta')
 
