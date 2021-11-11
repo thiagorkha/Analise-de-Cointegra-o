@@ -13,14 +13,14 @@ from scipy.stats import linregress
 import ibov
 from funcoes import coint_model, get_market_data, half_life, get_beta_plot, _get_residuals_plot, beta_rotation, asBase64, fp_savefig, st_get_residuals_plot, st_get_beta_plot,beta_rotation1, clean_timeseries, drop_nan, coint_model1, gera_pares, download_hquotes, coint_model2
 
-pag = st.sidebar.selectbox('Escolha uma Opção',['Análise','Buscar pares','Vazio'], 2)
+pag = st.sidebar.selectbox('Escolha uma Opção',['Análise','Buscar pares','Início'], 2)
 
-if pag == 'Vazio':
+if pag == 'Início':
   st.title('Plataforma de Cointegração')
 
 
 if pag == 'Buscar pares':
-  st.title('Buscar pares')
+  st.title('Pares Cointegrados')
   
   #if st.sidebar.button('Gerar Pares'):
 
@@ -28,7 +28,7 @@ if pag == 'Buscar pares':
   #if st.sidebar.button('Atualizar Dados'):
  
 
-  if st.sidebar.button('Buscar Pares'):
+  if st.sidebar.button('Buscar'):
     
     ibrx_tickers = [ "%s.SA" % s for s in ibov.CARTEIRA_IBOV]    
     pares = gera_pares(ibrx_tickers)
