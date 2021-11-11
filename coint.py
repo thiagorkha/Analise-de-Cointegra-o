@@ -185,6 +185,6 @@ if senha == senha_sl:
             cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
             st.dataframe(cjt1)
 else:
-  print('Senha incorreta')
+  st.write('Senha incorreta')
 
 
