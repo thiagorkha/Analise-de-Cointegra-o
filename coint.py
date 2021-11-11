@@ -184,7 +184,7 @@ if senha == senha_sl:
             res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmin: .4f}']]
             cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
             st.dataframe(cjt1)
-else:
-  st.write('Senha incorreta')
+elif senha != '':
+  st.sidebar.write('Senha incorreta')
 
 
