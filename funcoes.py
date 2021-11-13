@@ -10,7 +10,8 @@ from statsmodels.tsa.stattools import adfuller
 from datetime import datetime, timedelta
 from scipy.stats import linregress
 import streamlit as st
-
+import plotly.express as px
+import plotly.graph_objects as go
 
 
 def get_market_data(tickers, period, interval):
@@ -285,6 +286,40 @@ def coint_model2(series_x, series_y, periodo,quote):
     except:
         raise
 
+def get_beta_plot1(beta_list):
+    df = pd.DataFrame(beta_list)
+    df = df.reset_index()
+
+
+    fig = px.line(df, x='index', y=0, title='Beta Rotation')
+    fig.update_xaxes(rangeslider_visible=True)
+
+    return fig.show()
+
+def _get_residuals_plot1(ols):
+    ct = ols.resid
+    df = pd.DataFrame(ct)
+    df = df.reset_index()
+    c = len(df.index)
+
+    media = ols.resid.median()
+    m = [media] * c
+    stddev = ols.resid.std()
+    stdmax = media + (stddev * 1.96)
+    stdmin = media - (stddev * 1.96)
+
+    smax = [stdmax] * c
+    smin = [stdmin] * c
+
+    fig = go.Figure()
+    
+    fig.add_trace(go.Scatter(x=df['Date'],y=df[0], name='Residuo'))
+    fig.add_trace(go.Scatter(x=df['Date'], y=m, name='Média'))
+    fig.add_trace(go.Scatter(x=df['Date'], y=smax, name='Desvios Max'))
+    fig.add_trace(go.Scatter(x=df['Date'], y=smin, name='Desvios Min'))
+    fig.update_xaxes(rangeslider_visible=True)
+
+    return fig.show()
 
 
 
