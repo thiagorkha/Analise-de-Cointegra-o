@@ -317,7 +317,7 @@ def get_residuals_plot1(ols):
     fig.add_trace(go.Scatter(x=df['Date'], y=m, name='Média'))
     fig.add_trace(go.Scatter(x=df['Date'], y=smax, name='Desvios Max'))
     fig.add_trace(go.Scatter(x=df['Date'], y=smin, name='Desvios Min'))
-    fig.update_layout(width=1200, height=500)
+    fig.update_layout(width=1000, height=650)
     fig.update_xaxes(rangeslider_visible=True)
 
     return st.plotly_chart(fig)
