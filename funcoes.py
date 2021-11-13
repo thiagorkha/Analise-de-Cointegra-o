@@ -294,7 +294,7 @@ def get_beta_plot1(beta_list):
     fig = px.line(df, x='index', y=0, title='Beta Rotation')
     fig.update_xaxes(rangeslider_visible=True)
 
-    return st.plotly_chart(fig.show())
+    return st.plotly_chart(fig)
 
 def get_residuals_plot1(ols):
     ct = ols.resid
@@ -319,7 +319,7 @@ def get_residuals_plot1(ols):
     fig.add_trace(go.Scatter(x=df['Date'], y=smin, name='Desvios Min'))
     fig.update_xaxes(rangeslider_visible=True)
 
-    return st.plotly_chart(fig.show())
+    return st.plotly_chart(fig)
 
 
 
