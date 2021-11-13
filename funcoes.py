@@ -10,8 +10,7 @@ from statsmodels.tsa.stattools import adfuller
 from datetime import datetime, timedelta
 from scipy.stats import linregress
 import streamlit as st
-import plotly.express as px
-import plotly.graph_objects as go
+
 
 
 def get_market_data(tickers, period, interval):
