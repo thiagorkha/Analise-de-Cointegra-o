@@ -291,7 +291,7 @@ def get_beta_plot1(beta_list):
     df = df.reset_index()
 
 
-    fig = px.line(df, x='index', y=0, title='Beta Rotation')
+    fig = px.line(df, x='index', y=0, title='Beta Rotation', width=5000, height=2000)
     fig.update_xaxes(rangeslider_visible=True)
 
     return st.plotly_chart(fig)
