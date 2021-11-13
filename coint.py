@@ -13,7 +13,7 @@ from scipy.stats import linregress
 import plotly.express as px
 import plotly.graph_objects as go
 import ibov
-from funcoes import coint_model, get_market_data, half_life, get_beta_plot, _get_residuals_plot, beta_rotation, asBase64, fp_savefig, st_get_residuals_plot, st_get_beta_plot,beta_rotation1, clean_timeseries, drop_nan, coint_model1, gera_pares, download_hquotes, coint_model2
+from funcoes import coint_model, get_market_data, half_life, get_beta_plot, _get_residuals_plot, beta_rotation, asBase64, fp_savefig, st_get_residuals_plot, st_get_beta_plot,beta_rotation1, clean_timeseries, drop_nan, coint_model1, gera_pares, download_hquotes, coint_model2, get_residuals_plot1, get_beta_plot1
 
 senha = st.sidebar.text_input("Password:", value="", type="password")
 senha_sl = 'thiago123'
