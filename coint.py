@@ -84,7 +84,7 @@ if senha == senha_sl:
     qtdc = st.sidebar.slider('Quantidade da Dependente',1,1000,100,1)
     seriesx = st.sidebar.selectbox('Independente', ibov.CARTEIRA_IBOV ) + '.SA'
     periodo1 = st.sidebar.slider("Periodo", 100, 260, 260, 20)
-
+    c1, c2 = st.columns((1, 2))
 
 
     if st.sidebar.button('Calcular'):
@@ -131,54 +131,57 @@ if senha == senha_sl:
 
       res = [[adfperc, f'{(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', f'{lin: .2f}']]  
       cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.'])
+      
+      with c1:
+        st.dataframe(cjt)
 
-      st.dataframe(cjt)
 
+        if (residuo.iloc[-1] > 0):
+          st.write('Vender',f'{qcd: .0f}', seriesy, f'No valor de R${vl: .2f}') 
+          st.write('Comprar',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
+        elif (residuo.iloc[-1] < 0) :
+          st.write('Comprar',f'{qcd: .0f}', seriesy, 'No valor de R$',f'{vl: .2f}')
+          st.write('Vender',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
+      
+      with c2:
+        st.subheader('Gráfico do Residuo')  
+        graf = get_residuals_plot1(coint['OLS'])
+        st.subheader("Gráfico do Beta Rotation")
+        graf1 = get_beta_plot1(beta_rot)  
+        st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
+      
+      with c1:
+        st.subheader('Periodos Cointegrados')
+        periodos = list(range(20, 280 ,20))
+        for periodo in periodos:
+          coint = coint_model1(seriesx, seriesy, periodo)
+          adfr = coint['ADF']
+          residuo = (coint['OLS']).resid
+          stddev = (coint['OLS']).resid.std()
+          media = (coint['OLS']).resid.median()
+          stdmax = media + (stddev * 1.96)
+          stdmin = media - (stddev * 1.96)
+          if (adfr[0] < -3):
+            ADF = adfr[0]
 
-      if (residuo.iloc[-1] > 0):
-        st.write('Vender',f'{qcd: .0f}', seriesy, f'No valor de R${vl: .2f}') 
-        st.write('Comprar',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
-      elif (residuo.iloc[-1] < 0) :
-        st.write('Comprar',f'{qcd: .0f}', seriesy, 'No valor de R$',f'{vl: .2f}')
-        st.write('Vender',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
+            if (ADF < -3.45):
+              adfperc = '99%'
+            elif (ADF < -2.87):
+              adfperc = '95%'
+            elif (ADF < -2.57):
+              adfperc = '90%'
+            else:
+              adfperc = '0%'    
 
-      st.subheader('Gráfico do Residuo')  
-      graf = get_residuals_plot1(coint['OLS'])
-      st.subheader("Gráfico do Beta Rotation")
-      graf1 = get_beta_plot1(beta_rot)  
-      st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
+            if (residuo.iloc[-1] > 0):
+              res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmax: .4f}']]
+              cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
+              st.dataframe(cjt1)
 
-      st.subheader('Periodos Cointegrados')
-      periodos = list(range(20, 280 ,20))
-      for periodo in periodos:
-        coint = coint_model1(seriesx, seriesy, periodo)
-        adfr = coint['ADF']
-        residuo = (coint['OLS']).resid
-        stddev = (coint['OLS']).resid.std()
-        media = (coint['OLS']).resid.median()
-        stdmax = media + (stddev * 1.96)
-        stdmin = media - (stddev * 1.96)
-        if (adfr[0] < -3):
-          ADF = adfr[0]
-
-          if (ADF < -3.45):
-            adfperc = '99%'
-          elif (ADF < -2.87):
-            adfperc = '95%'
-          elif (ADF < -2.57):
-            adfperc = '90%'
-          else:
-            adfperc = '0%'    
-  
-          if (residuo.iloc[-1] > 0):
-            res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmax: .4f}']]
-            cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
-            st.dataframe(cjt1)
-
-          elif (residuo.iloc[-1] < 0):
-            res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmin: .4f}']]
-            cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
-            st.dataframe(cjt1)
+            elif (residuo.iloc[-1] < 0):
+              res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmin: .4f}']]
+              cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
+              st.dataframe(cjt1)
 elif senha != '':
   st.sidebar.write('Senha incorreta')
 
