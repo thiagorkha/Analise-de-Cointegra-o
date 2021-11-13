@@ -10,7 +10,8 @@ from statsmodels.tsa.stattools import adfuller
 from datetime import datetime, timedelta
 from scipy.stats import linregress
 import streamlit as st
-
+import plotly.express as px
+import plotly.graph_objects as go
 
 
 def get_market_data(tickers, period, interval):
@@ -293,9 +294,9 @@ def get_beta_plot1(beta_list):
     fig = px.line(df, x='index', y=0, title='Beta Rotation')
     fig.update_xaxes(rangeslider_visible=True)
 
-    return fig.show()
+    return st.plotly_chart(fig.show())
 
-def _get_residuals_plot1(ols):
+def get_residuals_plot1(ols):
     ct = ols.resid
     df = pd.DataFrame(ct)
     df = df.reset_index()
@@ -318,7 +319,7 @@ def _get_residuals_plot1(ols):
     fig.add_trace(go.Scatter(x=df['Date'], y=smin, name='Desvios Min'))
     fig.update_xaxes(rangeslider_visible=True)
 
-    return fig.show()
+    return st.plotly_chart(fig.show())
 
 
 
