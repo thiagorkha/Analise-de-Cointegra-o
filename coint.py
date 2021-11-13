@@ -1,6 +1,6 @@
 import streamlit as st
-#PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
-#st.beta_set_page_config(**PAGE_CONFIG)
+import plotly.express as px
+import plotly.graph_objects as go
 import base64
 from io import StringIO
 from io import BytesIO
@@ -83,14 +83,7 @@ if senha == senha_sl:
     seriesx = st.sidebar.selectbox('Independente', ibov.CARTEIRA_IBOV ) + '.SA'
     periodo1 = st.sidebar.slider("Periodo", 100, 260, 260, 20)
 
-    #period = '2y'
-    #interval = '1d'
 
-    #data = get_market_data([series_x, series_y], period, interval)
-    #market_data = data[periodo1:]
-    #market_data = market_data.dropna()
-    #series_x = market_data['Close'][series_x]
-    #series_y = market_data['Close'][series_y]
 
     if st.sidebar.button('Calcular'):
 
@@ -148,10 +141,10 @@ if senha == senha_sl:
         st.write('Vender',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
 
       st.subheader('Gráfico do Residuo')  
-      graf = st_get_residuals_plot(coint['OLS'])
+      graf = st_get_residuals_plot1(coint['OLS'])
       st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
       st.subheader("Gráfico do Beta Rotation")
-      graf1 = st_get_beta_plot(beta_rot)   
+      graf1 = st_get_beta_plot1(beta_rot)   
 
       st.subheader('Periodos Cointegrados')
       periodos = list(range(20, 280 ,20))
