@@ -291,7 +291,7 @@ def get_beta_plot1(beta_list):
     df = df.reset_index()
 
 
-    fig = px.line(df, x='index', y=0, labels={'index': ' ', '0': ' '}, template='none', width=1000, height=500)
+    fig = px.line(df, x='index', y=0, labels={'index': ' ', '0': ' '}, width=1000, height=500)
     fig.update_xaxes(rangeslider_visible=True)
 
     return st.plotly_chart(fig)
@@ -317,7 +317,7 @@ def get_residuals_plot1(ols):
     fig.add_trace(go.Scatter(x=df['Date'], y=m, name='Média'))
     fig.add_trace(go.Scatter(x=df['Date'], y=smax, name='Desvios Max'))
     fig.add_trace(go.Scatter(x=df['Date'], y=smin, name='Desvios Min'))
-    fig.update_layout(template='none', width=1100, height=650)
+    fig.update_layout(width=1100, height=650)
     fig.update_xaxes(rangeslider_visible=True)
 
     return st.plotly_chart(fig)
