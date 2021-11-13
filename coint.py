@@ -10,6 +10,8 @@ import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
 from datetime import datetime, timedelta
 from scipy.stats import linregress
+import plotly.express as px
+import plotly.graph_objects as go
 import ibov
 from funcoes import coint_model, get_market_data, half_life, get_beta_plot, _get_residuals_plot, beta_rotation, asBase64, fp_savefig, st_get_residuals_plot, st_get_beta_plot,beta_rotation1, clean_timeseries, drop_nan, coint_model1, gera_pares, download_hquotes, coint_model2
 
@@ -139,10 +141,10 @@ if senha == senha_sl:
         st.write('Vender',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
 
       st.subheader('Gráfico do Residuo')  
-      graf = st_get_residuals_plot(coint['OLS'])
+      graf = get_residuals_plot1(coint['OLS'])
       st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
       st.subheader("Gráfico do Beta Rotation")
-      graf1 = st_get_beta_plot(beta_rot)   
+      graf1 = get_beta_plot1(beta_rot)   
 
       st.subheader('Periodos Cointegrados')
       periodos = list(range(20, 280 ,20))
