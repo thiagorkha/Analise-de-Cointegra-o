@@ -139,10 +139,10 @@ if senha == senha_sl:
         st.write('Vender',f'{qcin: .0f}', seriesx, f'No valor de R${vl2: .2f}')
 
       st.subheader('Gráfico do Residuo')  
-      graf = st_get_residuals_plot1(coint['OLS'])
+      graf = st_get_residuals_plot(coint['OLS'])
       st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
       st.subheader("Gráfico do Beta Rotation")
-      graf1 = st_get_beta_plot1(beta_rot)   
+      graf1 = st_get_beta_plot(beta_rot)   
 
       st.subheader('Periodos Cointegrados')
       periodos = list(range(20, 280 ,20))
