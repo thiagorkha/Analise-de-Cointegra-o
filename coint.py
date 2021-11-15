@@ -1,4 +1,6 @@
 import streamlit as st
+PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
+#st.beta_set_page_config(**PAGE_CONFIG)
 import base64
 from io import StringIO
 from io import BytesIO
@@ -12,17 +14,22 @@ from datetime import datetime, timedelta
 from scipy.stats import linregress
 import plotly.express as px
 import plotly.graph_objects as go
+from PIL import Image
 import ibov
 from funcoes import coint_model, get_market_data, half_life, get_beta_plot, _get_residuals_plot, beta_rotation, asBase64, fp_savefig, st_get_residuals_plot, st_get_beta_plot,beta_rotation1, clean_timeseries, drop_nan, coint_model1, gera_pares, download_hquotes, coint_model2, get_residuals_plot1, get_beta_plot1
 
 st.set_page_config(page_title="Plataforma de Cointegração",layout='wide')
 
+imagem = Image.open('Logo.jpg')
+st.sidebar.image(imagem)
+
 senha = st.sidebar.text_input("Password:", value="", type="password")
 senha_sl = 'thiago123'
 
+
 if senha == senha_sl:
 
-  pag = st.sidebar.selectbox('Escolha uma Opção',['Análise','Buscar pares','Início'], 2)
+  pag = st.sidebar.selectbox('Escolha uma Opção',['Início', 'Análise','Buscar pares'], 0)
 
   if pag == 'Início':
     st.title('Plataforma de Cointegração')
@@ -63,14 +70,24 @@ if senha == senha_sl:
           stdmax = media + (stddev * 1.96)
           stdmin = media - (stddev * 1.96)
 
+          ADF = Adfr[0]
+
+          if (ADF < -3.45):
+            adfperc = '99%'
+          elif (ADF < -2.87):
+            adfperc = '95%'
+          elif (ADF < -2.57):
+            adfperc = '90%'
+          else:
+            adfperc = '0%' 
             
           if (Adfr[0] < -3.5) and (residuo.iloc[-1] > stdmax) and (coint['Lin'] > 0): 
-            lst = [[par[1], par[0], Adfr[0], hl, periodo, Adfr[3], residuo.iloc[-1], stdmax, coint['Lin']]]
+            lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmax, coint['Lin']]]
             df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
             st.dataframe(df)  
               
           elif (Adfr[0] < -3.5) and (residuo.iloc[-1] < stdmin) and (coint['Lin'] > 0):
-            lst = [[par[1], par[0], Adfr[0], hl, periodo, Adfr[3], residuo.iloc[-1], stdmin, coint['Lin']]]
+            lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmin, coint['Lin']]]
             df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
             st.dataframe(df)
         
@@ -78,7 +95,7 @@ if senha == senha_sl:
 
 
   if pag == 'Análise':
-    st.title("Análise de Cointegração")
+    #st.title("Análise de Cointegração")
     sidebar = st.sidebar.header('Seleção de Ações')
     seriesy = st.sidebar.selectbox('Dependente', ibov.CARTEIRA_IBOV ) + '.SA'
     qtdc = st.sidebar.slider('Quantidade da Dependente',1,1000,100,1)
@@ -129,11 +146,12 @@ if senha == senha_sl:
       elif (residuo.iloc[-1] < 0) :
         std = f'{stdmin: .4f}'
 
-      res = [[adfperc, f'{(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', f'{lin: .2f}']]  
-      cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.'])
+      res = [[adfperc, f'{(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', f'{lin: .2f}',f'{((beta_rot[-1]) * 10): .2f}']]  
+      cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.', 'Beta Rot.'])
       
       with c1:
-        st.dataframe(cjt)
+        st.subheader('Análise de Cointegração')
+        st.write(cjt)
 
 
         if (residuo.iloc[-1] > 0):
@@ -148,7 +166,7 @@ if senha == senha_sl:
         graf = get_residuals_plot1(coint['OLS'])
         st.subheader("Gráfico do Beta Rotation")
         graf1 = get_beta_plot1(beta_rot)  
-        st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
+        #st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
       
       with c1:
         st.subheader('Periodos Cointegrados')
@@ -184,5 +202,4 @@ if senha == senha_sl:
               st.dataframe(cjt1)
 elif senha != '':
   st.sidebar.write('Senha incorreta')
-
 
