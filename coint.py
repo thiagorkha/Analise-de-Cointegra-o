@@ -32,6 +32,7 @@ if senha == senha_sl:
   pag = st.sidebar.selectbox('Escolha uma Opção',['Início', 'Análise','Buscar pares'], 0)
 
   if pag == 'Início':
+    st.image('Logo.jpg', width=100)
     st.title('Plataforma de Cointegração')
 
 
