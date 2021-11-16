@@ -1,5 +1,5 @@
 import streamlit as st
-PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
+#PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
 #st.beta_set_page_config(**PAGE_CONFIG)
 import base64
 from io import StringIO
@@ -46,6 +46,8 @@ if senha == senha_sl:
   
 
     if st.sidebar.button('Buscar'):
+      
+      @st.cache
       
       ibrx_tickers = [ "%s.SA" % s for s in ibov.CARTEIRA_IBOV]    
       pares = gera_pares(ibrx_tickers)
