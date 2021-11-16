@@ -44,10 +44,10 @@ if senha == senha_sl:
 
     #if st.sidebar.button('Atualizar Dados'):
   
-
+    @st.cache
     if st.sidebar.button('Buscar'):
       
-      @st.cache
+      
       
       ibrx_tickers = [ "%s.SA" % s for s in ibov.CARTEIRA_IBOV]    
       pares = gera_pares(ibrx_tickers)
