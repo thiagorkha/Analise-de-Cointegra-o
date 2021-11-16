@@ -44,7 +44,7 @@ if senha == senha_sl:
 
     #if st.sidebar.button('Atualizar Dados'):
   
-    @st.cache
+
     if st.sidebar.button('Buscar'):
       
       
