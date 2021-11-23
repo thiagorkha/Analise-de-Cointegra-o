@@ -171,9 +171,11 @@ if senha == senha_sl:
         graf1 = get_beta_plot1(beta_rot)  
         #st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
       
-      with c1:
+       with c1:
         st.subheader('Periodos Cointegrados')
         periodos = list(range(20, 280 ,20))
+        res1 = []
+        cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio']) 
         for periodo in periodos:
           coint = coint_model1(seriesx, seriesy, periodo)
           adfr = coint['ADF']
@@ -194,15 +196,19 @@ if senha == senha_sl:
             else:
               adfperc = '0%'    
 
+             
+
             if (residuo.iloc[-1] > 0):
               res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmax: .4f}']]
-              cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
-              st.dataframe(cjt1)
+              cjt2 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
+              cjt1 = pd.concat([cjt2, cjt1])
 
             elif (residuo.iloc[-1] < 0):
               res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmin: .4f}']]
-              cjt1 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
-              st.dataframe(cjt1)
+              cjt2 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
+              cjt1 = pd.concat([cjt2, cjt1])
+        
+        st.dataframe(cjt1)  
 elif senha != '':
   st.sidebar.write('Senha incorreta')
 
