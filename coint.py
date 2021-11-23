@@ -207,7 +207,9 @@ if senha == senha_sl:
               res1 = [[f'{(adfr[0]): .2f}', adfperc, f'{periodo: .0f}', f'{(residuo.iloc[-1]): .4f}', f'{stdmin: .4f}']]
               cjt2 = pd.DataFrame(res1, columns = ['Teste ADF', 'Teste ADF%', 'Periodo', 'Residuo', 'Desvio'])
               cjt1 = pd.concat([cjt2, cjt1])
-        
+              
+        cjt1.reset_index(inplace=True)
+        cjt1.drop('index', axis=1, inplace=True)
         st.dataframe(cjt1)  
 elif senha != '':
   st.sidebar.write('Senha incorreta')
