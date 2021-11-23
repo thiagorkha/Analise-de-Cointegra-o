@@ -49,7 +49,7 @@ CARTEIRA_IBOV = [
           'SOMA3',
           'HAPV3',
           'HYPE3',
-          'IGTA3',
+          #'IGTA3',
           'GNDI3',
           'IRBR3',
           'ITSA4',
