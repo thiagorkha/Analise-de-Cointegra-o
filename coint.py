@@ -171,7 +171,7 @@ if senha == senha_sl:
         graf1 = get_beta_plot1(beta_rot)  
         #st.write('Beta Rotation:', f'{((beta_rot[-1]) * 10): .2f}', "%")
       
-       with c1:
+      with c1:
         st.subheader('Periodos Cointegrados')
         periodos = list(range(20, 280 ,20))
         res1 = []
