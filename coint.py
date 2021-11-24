@@ -43,7 +43,7 @@ if senha == senha_sl:
 
 
     #if st.sidebar.button('Atualizar Dados'):
-    periodos = st.sidebar.select_slider('Periodos', options=[-100, -120, -140, -160, -180, -200, -220, -240, -260], value=[-100, -260])
+    
 
     if st.sidebar.button('Buscar'):
       
@@ -61,7 +61,7 @@ if senha == senha_sl:
       quot = quo.drop(columns=['Date'])
       quote = quot
     
-      #periodos = [-100, -120, -140, -160, -180, -200, -220, -240, -260]
+      periodos = [-100, -120, -140, -160, -180, -200, -220, -240, -260]
       for par in pares1:
         for periodo in periodos:
           coint = coint_model2(par[0], par[1], periodo, quote)
