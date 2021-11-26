@@ -61,10 +61,10 @@ if senha == senha_sl:
       quot = quo.drop(columns=['Date'])
       quote = quot
     
-      periodos = [-100, -120, -140, -160, -180, -200, -220, -240, -260]
+      periodos = [100, 120, 140, 160, 180, 200, 220, 240, 260]
       for par in pares1:
         for periodo in periodos:
-          coint = coint_model2(par[0], par[1], periodo, quote)
+          coint = coint_model2(par[0], par[1], -periodo, quote)
           Adfr = coint['ADF']
           hl, _ = half_life((coint['OLS']).resid)
           residuo = (coint['OLS']).resid
