@@ -1,5 +1,5 @@
 import streamlit as st
-#PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
+PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
 #st.beta_set_page_config(**PAGE_CONFIG)
 import base64
 from io import StringIO
@@ -38,10 +38,15 @@ if senha == senha_sl:
 
   if pag == 'Buscar pares':
     st.title('Pares Cointegrados')
+    
+    #if st.sidebar.button('Gerar Pares'):
 
 
-    if st.sidebar.button('Buscar'):      
-            
+    #if st.sidebar.button('Atualizar Dados'):
+  
+
+    if st.sidebar.button('Buscar'):
+      
       ibrx_tickers = [ "%s.SA" % s for s in ibov.CARTEIRA_IBOV]    
       pares = gera_pares(ibrx_tickers)
       pares1 = list(pares)
@@ -53,46 +58,42 @@ if senha == senha_sl:
       quo = qu.reset_index(0)
       quot = quo.drop(columns=['Date'])
       quote = quot
-      
-      
+    
       periodos = [-100, -120, -140, -160, -180, -200, -220, -240, -260]
-      lst = []
-      df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
-
       for par in pares1:
         for periodo in periodos:
-            coint = coint_model1(par[0], par[1], periodo)
-            Adfr = coint['ADF']
-            hl, _ = half_life((coint['OLS']).resid)
-            residuo = (coint['OLS']).resid
-            stddev = (coint['OLS']).resid.std()
-            media = (coint['OLS']).resid.median()
-            stdmax = media + (stddev * 1.96)
-            stdmin = media - (stddev * 1.96)
-            
-            
-            ADF = Adfr[0]
+          coint = coint_model2(par[0], par[1], periodo, quote)
+          Adfr = coint['ADF']
+          hl, _ = half_life((coint['OLS']).resid)
+          residuo = (coint['OLS']).resid
+          stddev = (coint['OLS']).resid.std()
+          media = (coint['OLS']).resid.median()
+          stdmax = media + (stddev * 1.96)
+          stdmin = media - (stddev * 1.96)
 
-            if (ADF < -3.45):
-              adfperc = '99%'
-            elif (ADF < -2.87):
-              adfperc = '95%'
-            elif (ADF < -2.57):
-              adfperc = '90%'
-            else:
-              adfperc = '0%' 
+          ADF = Adfr[0]
+
+          if (ADF < -3.45):
+            adfperc = '99%'
+          elif (ADF < -2.87):
+            adfperc = '95%'
+          elif (ADF < -2.57):
+            adfperc = '90%'
+          else:
+            adfperc = '0%' 
+
+          lst = []
+          df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )  
+            
+          if (Adfr[0] < -3.5) and (residuo.iloc[-1] > stdmax) and (coint['Lin'] > 0): 
+            lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmax, coint['Lin']]]
+            df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
+            st.dataframe(df)  
               
-            if (Adfr[0] < -3.5) and (residuo.iloc[-1] > stdmax) and (coint['Lin'] > 0): 
-              lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmax, coint['Lin']]]
-              df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
-              st.dataframe(df)  
-                
-            elif (Adfr[0] < -3.5) and (residuo.iloc[-1] < stdmin) and (coint['Lin'] > 0):
-              lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmin, coint['Lin']]]
-              df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
-              st.dataframe(df)
-        
-
+          elif (Adfr[0] < -3.5) and (residuo.iloc[-1] < stdmin) and (coint['Lin'] > 0):
+            lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmin, coint['Lin']]]
+            df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
+            st.dataframe(df)
 
 
   if pag == 'Análise':
