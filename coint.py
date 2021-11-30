@@ -1,6 +1,6 @@
 import streamlit as st
 #PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
-#st.set_page_config(**PAGE_CONFIG)
+#st.beta_set_page_config(**PAGE_CONFIG)
 import base64
 from io import StringIO
 from io import BytesIO
@@ -38,12 +38,7 @@ if senha == senha_sl:
 
   if pag == 'Buscar pares':
     st.title('Pares Cointegrados')
-    
-    #if st.sidebar.button('Gerar Pares'):
 
-
-    #if st.sidebar.button('Atualizar Dados'):
-    
 
     if st.sidebar.button('Buscar'):      
             
