@@ -60,13 +60,13 @@ if senha == senha_sl:
       quote = quot
       
       
-      periodos = [-100, -120, -140, -160, -180, -200, -220, -240, -260]
+      periodos = [100, 120, 140, 160, 180, 200, 220, 240, 260]
       lst = []
       df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
 
       for par in pares1:
         for periodo in periodos:
-            coint = coint_model1(par[0], par[1], periodo)
+            coint = coint_model1(par[0], par[1], -periodo)
             Adfr = coint['ADF']
             hl, _ = half_life((coint['OLS']).resid)
             residuo = (coint['OLS']).resid
