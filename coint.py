@@ -61,7 +61,7 @@ if senha == senha_sl:
 
       for par in pares1:
         for periodo in periodos:
-            coint = coint_model1(par[0], par[1], periodo)
+            coint = coint_model2(par[0], par[1], periodo, quote)
             Adfr = coint['ADF']
             hl, _ = half_life((coint['OLS']).resid)
             residuo = (coint['OLS']).resid
