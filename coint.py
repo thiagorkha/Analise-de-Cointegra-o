@@ -1,5 +1,5 @@
 import streamlit as st
-PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
+#PAGE_CONFIG = {"page_title":"StColab.io","page_icon":":smiley:","layout":"centered"}
 #st.beta_set_page_config(**PAGE_CONFIG)
 import base64
 from io import StringIO
@@ -18,6 +18,7 @@ from PIL import Image
 import ibov
 from funcoes import coint_model, get_market_data, half_life, get_beta_plot, _get_residuals_plot, beta_rotation, asBase64, fp_savefig, st_get_residuals_plot, st_get_beta_plot,beta_rotation1, clean_timeseries, drop_nan, coint_model1, gera_pares, download_hquotes, coint_model2, get_residuals_plot1, get_beta_plot1
 
+st.session_state.count = 0
 st.set_page_config(page_title="Plataforma de Cointegração",layout='wide')
 
 imagem = Image.open('Logo.jpg')
