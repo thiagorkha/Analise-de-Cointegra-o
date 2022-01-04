@@ -71,7 +71,7 @@ CARTEIRA_IBOV = [
           'PCAR3',
           'PETR3',
           'PETR4',
-          'BRDT3',
+          #'BRDT3',
           'PRIO3',
           'PETZ3',
           'QUAL3',
