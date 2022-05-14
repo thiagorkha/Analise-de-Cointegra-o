@@ -1,7 +1,7 @@
 # http://www.b3.com.br/pt_br/market-data-e-indices/indices/indices-amplos/indice-brasil-100-ibrx-100-composicao-da-carteira.htm
 
 CARTEIRA_IBOV = [
-          ‘ABEV3’,
+          'ABEV3',
           ‘ALPA4’,
           ‘AMER3’,
           ‘ASAI3’,
