@@ -8,7 +8,6 @@ CARTEIRA_IBOV = [
           "ASAI3",
           "AZUL4",
           "B3SA3",
-          "BIDI11",
           "BPAN4",
           "BBSE3",
           "BRML3",
