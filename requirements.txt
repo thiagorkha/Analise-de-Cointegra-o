@@ -7,4 +7,4 @@ statsmodels==0.13.0
 streamlit==1.9.2
 yfinance==0.1.64
 plotly==5.3.1
-altair
+altair<5
