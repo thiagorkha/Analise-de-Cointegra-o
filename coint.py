@@ -55,7 +55,7 @@ if senha == senha_sl:
       
       ibrx_tickers = [ "%s.SA" % s for s in ibov.CARTEIRA_IBOV]
       q = download_hquotes(ibrx_tickers)
-      qu = q.drop(columns=['Volume','Open','Low', 'High', 'Adj Close'])
+      qu = q.drop(columns=['Volume','Open','Low', 'High'])
       quo = qu.reset_index(0)
       quot = quo.drop(columns=['Date'])
       quote = quot
