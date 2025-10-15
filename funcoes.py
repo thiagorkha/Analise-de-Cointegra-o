@@ -13,7 +13,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
-
+@st.cache_data(ttl=24*3600)
 def get_market_data(tickers, period, interval):
     """
     https://github.com/ranaroussi/yfinance/issues/363
@@ -32,7 +32,7 @@ def get_market_data(tickers, period, interval):
     )
     return data
 
-
+@st.cache_data(ttl=24*3600)
 def coint_model(series_x, series_y):
     try:
         X = sm.add_constant(series_x.values)
@@ -110,7 +110,7 @@ def st_get_residuals_plot(ols):
     
     return st.pyplot(mplt)
 
-
+@st.cache_data(ttl=24*3600)
 def beta_rotation(series_x, series_y, window=40):
     beta_list = []
     try:
@@ -127,7 +127,8 @@ def beta_rotation(series_x, series_y, window=40):
         raise
 
     return beta_list
-
+    
+@st.cache_data(ttl=24*3600)
 def beta_rotation1(series_x, series_y, window=40):
        
     get_market_data([series_x, series_y], '2y', '1d')
@@ -184,7 +185,7 @@ def st_get_beta_plot(beta_list):
     
     return st.pyplot(mplt)
 
-
+@st.cache_data(ttl=24*3600)
 def coint_model1(series_x, series_y, periodo):
    
     get_market_data([series_x, series_y], '2y', '1d')
@@ -228,7 +229,7 @@ def clean_timeseries(x, y):
     newy = y[intersc].sort_index()
     return newx, newy
 
-
+@st.cache_data(ttl=24*3600)
 def download_hquotes(carteira_tickers):
     global market_data
 
@@ -244,7 +245,7 @@ def download_hquotes(carteira_tickers):
 
     return market_data
 
-
+@st.cache_data(ttl=24*3600)
 def gera_pares(carteira_tickers):
 
     # Forma todos os pares sem repetição
@@ -258,7 +259,8 @@ def gera_pares(carteira_tickers):
     print('Total:', len(set_pairs), 'pares')
 
     return set_pairs
-
+    
+@st.cache_data(ttl=24*3600)
 def coint_model2(series_x, series_y, periodo,quote):
    
     p = periodo + 260
