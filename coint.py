@@ -88,12 +88,12 @@ if senha == senha_sl:
           df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )  
             
           if (Adfr[0] < -3.5) and (residuo.iloc[-1] > stdmax) and (coint['Lin'] > 0): 
-            lst = [[par[1], par[0], adfperc, hl, h, periodo, Adfr[3], residuo.iloc[-1], stdmax, coint['Lin']]]
+            lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmax, coint['Lin']]]
             df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
             st.dataframe(df)  
               
           elif (Adfr[0] < -3.5) and (residuo.iloc[-1] < stdmin) and (coint['Lin'] > 0):
-            lst = [[par[1], par[0], adfperc, hl, h, periodo, Adfr[3], residuo.iloc[-1], stdmin, coint['Lin']]]
+            lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmin, coint['Lin']]]
             df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
             st.dataframe(df)
 
