@@ -57,6 +57,10 @@ def half_life(ts):
     half_life = -1*np.log(2)/ar_res.params['x1']
     return half_life, ar_res 
 
+def hurst_calc(ts):
+    H, c, data = compute_Hc(ts, kind='random_walk', simplified=True, min_sample=40)
+    return H, 2 - H
+    
 def asBase64(my_plt):
     _buffer = BytesIO()
     my_plt.savefig(_buffer, format='png', bbox_inches='tight')
