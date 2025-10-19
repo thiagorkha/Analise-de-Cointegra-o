@@ -140,7 +140,7 @@ if senha == senha_sl:
           qcin = qcd * lin
           beta_rot = beta_rotation(series_x, series_y, window=40)
           half_life, _ = half_life(coint['OLS'].resid)
-          H, c, data = hurst_calc(coint['OLS'].resid)
+          #H, c, data = hurst_calc(coint['OLS'].resid)
           vl = qcd * series_y.iloc[-1]
           vl2 = qcin * series_x.iloc[-1]
 
@@ -160,8 +160,8 @@ if senha == senha_sl:
           elif (residuo.iloc[-1] < 0) :
             std = f'{stdmin: .4f}'
 
-          res = [[adfperc, f'{(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', H, f'{lin: .2f}',f'{((beta_rot[-1]) * 10): .2f}']]  
-          cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Residuo', 'Desvio', 'Meia vida', 'Hurst', 'Coef. Ang.', 'Beta Rot.'])
+          res = [[adfperc, f'{(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', f'{lin: .2f}',f'{((beta_rot[-1]) * 10): .2f}']]  
+          cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.', 'Beta Rot.'])
           
           with c1:
             st.subheader('Análise de Cointegração')
