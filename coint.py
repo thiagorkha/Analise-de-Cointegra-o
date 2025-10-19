@@ -67,7 +67,7 @@ if senha == senha_sl:
           coint = coint_model2(par[0], par[1], periodo, quote)
           Adfr = coint['ADF']
           hl, _ = half_life((coint['OLS']).resid)
-          h, c = hurst_calc(coint['OLS'].resid)
+          h, c = compute_Hc(coint['OLS'].resid)
           residuo = (coint['OLS']).resid
           stddev = (coint['OLS']).resid.std()
           media = (coint['OLS']).resid.median()
@@ -141,7 +141,7 @@ if senha == senha_sl:
           qcin = qcd * lin
           beta_rot = beta_rotation(series_x, series_y, window=40)
           half_life, _ = half_life(coint['OLS'].resid)
-          h, c = hurst_calc(coint['OLS'].resid)
+          h, c = compute_Hc(coint['OLS'].resid)
           vl = qcd * series_y.iloc[-1]
           vl2 = qcin * series_x.iloc[-1]
 
