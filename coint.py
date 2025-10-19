@@ -140,7 +140,7 @@ if senha == senha_sl:
           qcin = qcd * lin
           beta_rot = beta_rotation(series_x, series_y, window=40)
           half_life, _ = half_life(coint['OLS'].resid)
-          #H, c, data = hurst_calc(coint['OLS'].resid)
+          H, c, data = hurst_calc(coint['OLS'].resid)
           vl = qcd * series_y.iloc[-1]
           vl2 = qcin * series_x.iloc[-1]
 
