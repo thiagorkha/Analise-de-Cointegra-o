@@ -161,7 +161,7 @@ if senha == senha_sl:
           elif (residuo.iloc[-1] < 0) :
             std = f'{stdmin: .4f}'
 
-          res = [[adfperc, f'{H: .4f}, f'{(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', f'{lin: .2f}',f'{((beta_rot[-1]) * 10): .2f}']]  
+          res = [[adfperc, f'{H: .4f}, {(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', f'{lin: .2f}',f'{((beta_rot[-1]) * 10): .2f}']]  
           cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Hurst' 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.', 'Beta Rot.'])
           
           with c1:
