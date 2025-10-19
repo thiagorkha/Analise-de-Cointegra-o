@@ -67,7 +67,7 @@ if senha == senha_sl:
           coint = coint_model2(par[0], par[1], periodo, quote)
           Adfr = coint['ADF']
           hl, _ = half_life((coint['OLS']).resid)
-          h, c = compute_Hc((coint['OLS']).resid)
+          h, c = hurst_calc((coint['OLS']).resid)
           residuo = (coint['OLS']).resid
           stddev = (coint['OLS']).resid.std()
           media = (coint['OLS']).resid.median()
