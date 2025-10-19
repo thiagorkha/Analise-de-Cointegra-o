@@ -67,7 +67,7 @@ if senha == senha_sl:
           coint = coint_model2(par[0], par[1], periodo, quote)
           Adfr = coint['ADF']
           hl, _ = half_life((coint['OLS']).resid)
-          h, c = hurst_calc((coint['OLS']).resid)
+          #h, c = hurst_calc((coint['OLS']).resid)
           residuo = (coint['OLS']).resid
           stddev = (coint['OLS']).resid.std()
           media = (coint['OLS']).resid.median()
@@ -86,16 +86,16 @@ if senha == senha_sl:
             adfperc = '0%' 
 
           lst = []
-          df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Hurst', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )  
+          df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )  
             
           if (Adfr[0] < -3.5) and (residuo.iloc[-1] > stdmax) and (coint['Lin'] > 0): 
-            lst = [[par[1], par[0], adfperc, h, hl, periodo, Adfr[3], residuo.iloc[-1], stdmax, coint['Lin']]]
-            df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Hurst', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
+            lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmax, coint['Lin']]]
+            df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
             st.dataframe(df)  
               
           elif (Adfr[0] < -3.5) and (residuo.iloc[-1] < stdmin) and (coint['Lin'] > 0):
-            lst = [[par[1], par[0], adfperc, h, hl, periodo, Adfr[3], residuo.iloc[-1], stdmin, coint['Lin']]]
-            df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Hurst', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
+            lst = [[par[1], par[0], adfperc, hl, periodo, Adfr[3], residuo.iloc[-1], stdmin, coint['Lin']]]
+            df = pd.DataFrame(lst, columns = ['Dependente', 'Independente', 'ADF', 'Meia vida', 'Periodo', 'Periodo analisado', 'Residuo', 'Desvio', 'Coef. Ang.'] )
             st.dataframe(df)
 
 
