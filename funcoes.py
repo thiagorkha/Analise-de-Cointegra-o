@@ -12,6 +12,7 @@ from scipy.stats import linregress
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
+from hurst import compute_Hc
 
 
 def get_market_data(tickers, period, interval):
