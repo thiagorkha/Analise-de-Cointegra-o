@@ -59,7 +59,7 @@ def half_life(ts):
     return half_life, ar_res 
 
 def hurst_calc(ts):
-    H, c, data = compute_Hc(ts, kind='random_walk', simplified=True, min_sample=40)
+    H, c, data = compute_Hc(ts)
     return H, 2 - H
     
 def asBase64(my_plt):
