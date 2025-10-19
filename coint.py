@@ -162,7 +162,7 @@ if senha == senha_sl:
             std = f'{stdmin: .4f}'
 
           res = [[adfperc, f'{h: .4f}, {(residuo.iloc[-1]): .4f}', std, f'{half_life: .2f}', f'{lin: .2f}',f'{((beta_rot[-1]) * 10): .2f}']]  
-          cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Hurst' 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.', 'Beta Rot.'])
+          cjt = pd.DataFrame(res, columns = ['Teste ADF', 'Hurst', 'Residuo', 'Desvio', 'Meia vida', 'Coef. Ang.', 'Beta Rot.'])
           
           with c1:
             st.subheader('Análise de Cointegração')
