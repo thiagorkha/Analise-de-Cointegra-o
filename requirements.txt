@@ -8,4 +8,4 @@ streamlit==1.9.2
 yfinance==0.2.66
 plotly==5.3.1
 altair<5
-hurst
+hurst==0.0.5
